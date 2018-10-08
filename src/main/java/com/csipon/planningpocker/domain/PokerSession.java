@@ -1,13 +1,22 @@
 package com.csipon.planningpocker.domain;
 
-import lombok.Data;
+import javafx.beans.DefaultProperty;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@Builder
+@Document(collection = "pokerSession")
 public class PokerSession {
-    private Integer id;
-    private List<User> users;
+    @Id
+    private String id;
+    private Integer roomNumber;
+    private Set<User> users;
     private Map<User, Integer> points;
 }

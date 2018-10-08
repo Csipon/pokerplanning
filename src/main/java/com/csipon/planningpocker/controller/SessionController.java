@@ -1,33 +1,34 @@
 package com.csipon.planningpocker.controller;
 
+import com.csipon.planningpocker.domain.PokerSession;
+import com.csipon.planningpocker.service.PokerSessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 
 @Slf4j
 @RestController
-@RequestMapping("/session")
+@RequestMapping("/sessions")
+@RequiredArgsConstructor
 public class SessionController {
+    private final PokerSessionService pokerSessionService;
 
-
-    @PostMapping("/create")
-    public ResponseEntity<String> session(HttpServletRequest request,@RequestParam String token) throws JsonProcessingException {
-        log.debug(request.getSession().getId());
-        if (token == null){
-            token = UUID.randomUUID().toString();
-            request.setAttribute("token", token);
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        return ResponseEntity.ok(objectMapper.writeValueAsString(token));
+    @PostMapping
+    public ResponseEntity<PokerSession> session() {
+        PokerSession pokerSession = pokerSessionService.createPokerSession();
+        return ResponseEntity.ok().body(pokerSession);
     }
+
+    @GetMapping("/{roomNumber}")
+    public ResponseEntity<PokerSession> findSession(@PathVariable Integer roomNumber){
+        PokerSession pokerSession = pokerSessionService.findSession(roomNumber);
+        return ResponseEntity.ok().body(pokerSession);
+    }
+
 }

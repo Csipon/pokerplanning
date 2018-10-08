@@ -17,6 +17,13 @@ export const doPost = (url, config) => {
     init();
 
     const {postBody} = config;
+    console.log("postBody", postBody);
 
     return instance.post(url, postBody);
+};
+
+export const doGet = (url) => {
+    init();
+
+    return instance.get(url);
 };

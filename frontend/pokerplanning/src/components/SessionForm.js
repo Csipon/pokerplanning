@@ -1,40 +1,71 @@
 import React, {Component} from 'react';
-import {doPost} from "../util/NetworkUtils";
-import {CREATE_SESSION} from "../constant/constants";
+import {doGet, doPost} from "../util/NetworkUtils";
+import {SESSION} from "../constant/constants";
+import UserForm from "./UserForm";
 
-export default class SessionForm extends Component{
+export default class SessionForm extends Component {
 
 
     constructor(props) {
         super(props);
         this.state = {
-            token : null
+            session: null,
+            sessionNumber: 0
         }
     }
 
     createNewSession = () => {
-        doPost(CREATE_SESSION, {postBody: {token: this.state.token}})
-            .then(res => this.setToken(res))
+        doPost(SESSION, {postBody: {}})
+            .then(res => this.setSession(res))
             .catch(() => console.log("Error"));
     };
 
 
-    setToken = (response) =>{
-        const{token} = response.data;
-        this.setState({token});
-        console.log(response.data);
+    joinToSession = () => {
+        const {sessionNumber} = this.state;
+        doGet(SESSION + "/" + sessionNumber)
+            .then(res => this.setSession(res))
+            .catch(() => console.log("Error"));
     };
 
-    render() {
+    trackSessionNumber = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const sessionNumber = e.target.value;
+        console.log(sessionNumber);
+
+        this.setState({sessionNumber});
+    };
+
+    setSession = (response) => {
+        const session = response.data;
+        console.log("session", session);
+        this.setState({session});
+    };
+
+
+    renderSessionConnection = () => {
         return (
             <div>
                 <label htmlFor={"join"}>Join to session</label>
-                <form id={"join"}>
-                    <input type={"text"}/>
-                    <input type={"submit"} value={"join session"}/>
-                </form>
+                <div id={"join"}>
+                    <input type={"number"} onChange={this.trackSessionNumber}/>
+                    <button onClick={this.joinToSession}>join session</button>
+                </div>
                 <label htmlFor={"start-new"}>Start new session</label>
-                <button id={"start-new"} onClick={this.createNewSession}>start new</button>
+                <div id={"start-new"}>
+                    <button onClick={this.createNewSession}>start new</button>
+                </div>
+            </div>
+        );
+    };
+
+    render() {
+        const {session} = this.state;
+        return (
+            <div>
+                {!session && this.renderSessionConnection()}
+                {session && <UserForm pokerSession={session}/>}
             </div>
         );
     }
