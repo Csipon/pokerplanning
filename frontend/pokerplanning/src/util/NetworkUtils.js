@@ -17,7 +17,6 @@ export const doPost = (url, config) => {
     init();
 
     const {postBody} = config;
-    console.log("postBody", postBody);
 
     return instance.post(url, postBody);
 };

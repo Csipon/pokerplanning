@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -14,15 +17,15 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/sessions")
+@MessageMapping("/sessions")
 @RequiredArgsConstructor
 public class SessionController {
     private final PokerSessionService pokerSessionService;
 
     @PostMapping
-    public ResponseEntity<PokerSession> session() {
-        PokerSession pokerSession = pokerSessionService.createPokerSession();
-        return ResponseEntity.ok().body(pokerSession);
+    @SendTo("/topic/session")
+    public PokerSession session() {
+        return pokerSessionService.createPokerSession();
     }
 
     @GetMapping("/{roomNumber}")

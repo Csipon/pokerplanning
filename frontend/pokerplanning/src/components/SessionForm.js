@@ -32,14 +32,12 @@ export default class SessionForm extends Component {
         e.preventDefault();
         e.stopPropagation();
         const sessionNumber = e.target.value;
-        console.log(sessionNumber);
 
         this.setState({sessionNumber});
     };
 
     setSession = (response) => {
         const session = response.data;
-        console.log("session", session);
         this.setState({session});
     };
 
