@@ -51,7 +51,7 @@ export default class UserForm extends Component {
                 <label ref={"join-session"}>Enter your name</label>
                 <div id={"join-session"}>
                     <input type={"text"} onChange={this.trackUserName}/>
-                    <button onClick={this.joinUserToSession}>join to session</button>
+                    <button className={"button"} onClick={this.joinUserToSession}>join to session</button>
                 </div>
 
             </div>

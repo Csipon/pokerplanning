@@ -2,7 +2,7 @@ package com.csipon.planningpocker.controller;
 
 import com.csipon.planningpocker.domain.User;
 import com.csipon.planningpocker.domain.dto.CreateUserDto;
-import com.csipon.planningpocker.service.UserService;
+import com.csipon.planningpocker.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +19,6 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody CreateUserDto createUserDto){
         User user = userService.createUser(createUserDto);
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok(user);
     }
 }

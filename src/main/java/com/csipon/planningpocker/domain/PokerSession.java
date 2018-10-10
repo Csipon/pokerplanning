@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -17,6 +17,8 @@ public class PokerSession {
     @Id
     private String id;
     private Integer roomNumber;
+    private User creator;
     private Set<User> users;
-    private Map<User, Integer> points;
+    private UserStory currentStory;
+    private List<UserStory> userStories;
 }

@@ -1,10 +1,11 @@
 package com.csipon.planningpocker.service;
 
-import com.csipon.planningpocker.domain.PokerSession;
 import com.csipon.planningpocker.domain.User;
 import com.csipon.planningpocker.domain.dto.CreateUserDto;
 import com.csipon.planningpocker.exception.EntityIsNotExistException;
 import com.csipon.planningpocker.repository.UserRepository;
+import com.csipon.planningpocker.service.interfaces.PokerSessionService;
+import com.csipon.planningpocker.service.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

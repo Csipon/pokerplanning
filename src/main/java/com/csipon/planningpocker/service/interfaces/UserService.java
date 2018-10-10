@@ -1,4 +1,4 @@
-package com.csipon.planningpocker.service;
+package com.csipon.planningpocker.service.interfaces;
 
 import com.csipon.planningpocker.domain.User;
 import com.csipon.planningpocker.domain.dto.CreateUserDto;

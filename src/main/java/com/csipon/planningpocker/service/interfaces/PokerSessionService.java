@@ -1,9 +1,10 @@
-package com.csipon.planningpocker.service;
+package com.csipon.planningpocker.service.interfaces;
 
 import com.csipon.planningpocker.domain.PokerSession;
 import com.csipon.planningpocker.domain.User;
 
 public interface PokerSessionService {
+
     PokerSession update(PokerSession pokerSession);
 
     PokerSession createPokerSession();

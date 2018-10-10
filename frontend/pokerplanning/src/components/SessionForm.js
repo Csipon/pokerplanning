@@ -48,11 +48,11 @@ export default class SessionForm extends Component {
                 <label htmlFor={"join"}>Join to session</label>
                 <div id={"join"}>
                     <input type={"number"} onChange={this.trackSessionNumber}/>
-                    <button onClick={this.joinToSession}>join session</button>
+                    <button className={"button"} onClick={this.joinToSession}>join session</button>
                 </div>
                 <label htmlFor={"start-new"}>Start new session</label>
                 <div id={"start-new"}>
-                    <button onClick={this.createNewSession}>start new</button>
+                    <button className={"button"} onClick={this.createNewSession}>start new</button>
                 </div>
             </div>
         );

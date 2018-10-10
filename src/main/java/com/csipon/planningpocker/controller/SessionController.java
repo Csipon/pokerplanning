@@ -1,29 +1,22 @@
 package com.csipon.planningpocker.controller;
 
 import com.csipon.planningpocker.domain.PokerSession;
-import com.csipon.planningpocker.service.PokerSessionService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.csipon.planningpocker.domain.dto.CreateUserStoryDto;
+import com.csipon.planningpocker.service.interfaces.PokerSessionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 
 @Slf4j
 @RestController
-@MessageMapping("/sessions")
+@RequestMapping("/sessions")
 @RequiredArgsConstructor
 public class SessionController {
     private final PokerSessionService pokerSessionService;
 
     @PostMapping
-    @SendTo("/topic/session")
     public PokerSession session() {
         return pokerSessionService.createPokerSession();
     }
@@ -33,5 +26,4 @@ public class SessionController {
         PokerSession pokerSession = pokerSessionService.findSession(roomNumber);
         return ResponseEntity.ok().body(pokerSession);
     }
-
 }
